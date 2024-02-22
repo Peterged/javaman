@@ -14,7 +14,7 @@ public class KoneksiDatabase {
     public static Connection BukaKoneksi(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/pbo_perpustakaan","root","");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bank_java","root","");
             return cn;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
