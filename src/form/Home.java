@@ -18,8 +18,8 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    public String nomorAkun = "";
-    public String role = "";
+    public String NomorAkun = "";
+    public String myRole = "";
     public Statement st;
     public ResultSet rs;
     Connection cn = koneksi.KoneksiDatabase.BukaKoneksi();
@@ -34,18 +34,32 @@ public class Home extends javax.swing.JFrame {
         Menu1.setBackground(ClickedColor);
         Menu2.setBackground(DefaultColor);
         Menu3.setBackground(DefaultColor);
+        myRole = role;
+        NomorAkun = nomorAkun;
+        if ("user".equals(role)) {
+            handleUserRoleForPanel(role);
+        } else {
+            Menu1 menu1 = new Menu1(this);
+            jPanel2.removeAll();
+            jPanel2.add(menu1).setVisible(true);
+        }
 
-        Menu1 menu1 = new Menu1(this);
-        jPanel2.removeAll();
-        jPanel2.add(menu1).setVisible(true);
-
-        
         role = role.substring(0, 1).toUpperCase() + role.substring(1);
         roleLabel.setText(role);
+
     }
-    
-    private void handleUserRoleForPanel() {
-        
+
+    private void handleUserRoleForPanel(String role) {
+        if ("user".equals(role)) {
+            UserHome userHome = new UserHome(this, NomorAkun);
+            jPanel2.removeAll();
+            jPanel2.add(userHome).setVisible(true);
+            LabelMenu1.setText("Home");
+            LabelMenu2.setText("Transaksi Saya");
+            pageTitle.setText("Home");
+        } else if ("admin".equals(role)) {
+
+        }
     }
 
     /**
@@ -68,7 +82,7 @@ public class Home extends javax.swing.JFrame {
         Menu3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        pageTitle = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,6 +145,9 @@ public class Home extends javax.swing.JFrame {
         Menu2.setPreferredSize(new java.awt.Dimension(232, 44));
         Menu2.setVerifyInputWhenFocusTarget(false);
         Menu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Menu2MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Menu2MousePressed(evt);
             }
@@ -144,6 +161,9 @@ public class Home extends javax.swing.JFrame {
         LabelMenu2.setToolTipText("");
         LabelMenu2.setIconTextGap(8);
         LabelMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LabelMenu2MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 LabelMenu2MousePressed(evt);
             }
@@ -214,9 +234,9 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 249, 235));
 
-        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 1, 24)); // NOI18N
-        jLabel8.setText("Data Akun");
+        pageTitle.setBackground(new java.awt.Color(0, 0, 0));
+        pageTitle.setFont(new java.awt.Font("Montserrat SemiBold", 1, 24)); // NOI18N
+        pageTitle.setText("Data Akun");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -224,14 +244,14 @@ public class Home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel8)
+                .addComponent(pageTitle)
                 .addContainerGap(843, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel8)
+                .addComponent(pageTitle)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -274,15 +294,29 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_LabelMenu1MousePressed
 
     private void LabelMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelMenu1MouseClicked
-        Menu1 menu1 = new Menu1(this);
-        jPanel2.removeAll();
-        jPanel2.add(menu1).setVisible(true);
+        if ("user".equals(myRole)) {
+            UserHome userHome = new UserHome(this, NomorAkun);
+            jPanel2.removeAll();
+            jPanel2.add(userHome).setVisible(true);
+            pageTitle.setText("Home");
+        } else {
+            Menu1 menu1 = new Menu1(this);
+            jPanel2.removeAll();
+            jPanel2.add(menu1).setVisible(true);
+            pageTitle.setText("Daftar Akun");
+        }
     }//GEN-LAST:event_LabelMenu1MouseClicked
 
     private void Menu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu1MouseClicked
-        Menu1 menu1 = new Menu1(this);
-        jPanel2.removeAll();
-        jPanel2.add(menu1).setVisible(true);
+        if ("user".equals(myRole)) {
+            pageTitle.setText("Home");
+        } else {
+            Menu1 menu1 = new Menu1(this);
+            jPanel2.removeAll();
+            jPanel2.add(menu1).setVisible(true);
+            pageTitle.setText("Daftar Akun");
+        }
+
     }//GEN-LAST:event_Menu1MouseClicked
 
     private void LabelMenu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelMenu2MousePressed
@@ -292,28 +326,54 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_LabelMenu2MousePressed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new index().setVisible(true);
             }
         });
-        
+
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void Menu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu3MouseClicked
-        
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new index().setVisible(true);
             }
         });
-        
+
         this.dispose();
     }//GEN-LAST:event_Menu3MouseClicked
+
+    private void LabelMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelMenu2MouseClicked
+        if ("user".equals(myRole)) {
+//            MenuUser2 menuUser2 = new MenuUser2(this);
+//            jPanel2.removeAll();
+//            jPanel2.add(menuUser2).setVisible(true);
+            pageTitle.setText("Transaksi Saya");
+        } else {
+//            Menu2 menu2 = new Menu2(this);
+//            jPanel2.removeAll();
+//            jPanel2.add(menu2).setVisible(true);
+
+        }
+    }//GEN-LAST:event_LabelMenu2MouseClicked
+
+    private void Menu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Menu2MouseClicked
+        if ("user".equals(myRole)) {
+//            MenuUser2 menuUser2 = new MenuUser2(this);
+//            jPanel2.removeAll();
+//            jPanel2.add(menuUser2).setVisible(true);
+            pageTitle.setText("Transaksi Saya");
+        } else {
+//            Menu2 menu2 = new Menu2(this);
+//            jPanel2.removeAll();
+//            jPanel2.add(menu2).setVisible(true);
+
+        }
+    }//GEN-LAST:event_Menu2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -345,7 +405,7 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home("9286968558", "admin").setVisible(true);
+                new Home().setVisible(true);
             }
         });
     }
@@ -358,10 +418,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Menu3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel pageTitle;
     private javax.swing.JLabel roleLabel;
     private javax.swing.JPanel sidebarPanel;
     // End of variables declaration//GEN-END:variables

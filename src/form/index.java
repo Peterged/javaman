@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
 public class index extends javax.swing.JFrame {
 
     public boolean skipLogin = true;
-    public String skipLoginUsername = "user";
-    public String skipLoginPassword = "user";
+    public String skipLoginUsername = "admin";
+    public String skipLoginPassword = "admin";
     public Statement st;
     public ResultSet rs;
     Connection cn = koneksi.KoneksiDatabase.BukaKoneksi();

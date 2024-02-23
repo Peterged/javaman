@@ -14,7 +14,7 @@ public class KoneksiDatabase {
     public static Connection BukaKoneksi(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bank_java","root","");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bank_java?verifyServerCertificate=false&useSSL=true","root","");
             return cn;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

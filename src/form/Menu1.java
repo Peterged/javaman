@@ -8,7 +8,6 @@ package form;
  *
  * @author User
  */
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -27,6 +26,7 @@ import raven.cell.TableActionCellRender;
 import raven.cell.TableActionEvent;
 
 public class Menu1 extends javax.swing.JInternalFrame {
+
     public Statement st;
     public ResultSet rs;
     Connection cn = koneksi.KoneksiDatabase.BukaKoneksi();
@@ -43,17 +43,44 @@ public class Menu1 extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-        
+
         TampilDataUser();
         TableActionEvent event = new TableActionEvent() {
             @Override
-            public void onEdit(int row){
-                System.out.println("Edit row: " + row);
+            public void onEdit(int row) {
+                if (UserTable.isEditing()) {
+                    UserTable.getCellEditor().stopCellEditing();
+                }
+                DefaultTableModel model = (DefaultTableModel) UserTable.getModel();
+                String nomorAkun = model.getValueAt(row, 0).toString();
+
+                System.out.println(nomorAkun);
+                
+                EditAkun editAkun = null;
+                try {
+                    editAkun = new EditAkun(cn, nomorAkun);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Menu1.class.getName()).log(Level.SEVERE, null, ex);
+                    System.exit(0);
+                }
+                
+                editAkun.setVisible(true);
+
+                parentComponent.setEnabled(false);
+
+                editAkun.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        parentComponent.setEnabled(true);
+                    }
+                });
+
+                parentComponent.setVisible(true);
             }
-            
+
             @Override
-            public void onDelete(int row){
-                if(UserTable.isEditing()) {
+            public void onDelete(int row) {
+                if (UserTable.isEditing()) {
                     UserTable.getCellEditor().stopCellEditing();
                 }
                 DefaultTableModel model = (DefaultTableModel) UserTable.getModel();
@@ -70,21 +97,21 @@ public class Menu1 extends javax.swing.JInternalFrame {
         UserTable.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
         UserTable.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
     }
-    
+
     private void DeleteUserUsingNomorAkun(String nomorAkun) throws SQLException {
         String query = "DELETE FROM akun WHERE nomor_akun = ?";
         PreparedStatement statement = cn.prepareStatement(query);
-        
+
         statement.setString(1, nomorAkun);
-        
+
         int confirmation = JOptionPane.showConfirmDialog(null, "Apakah Anda Yakin akan MENGHAPUS DATA AKUN?", "WASPADA!", JOptionPane.YES_NO_OPTION);
-        
-        if(confirmation == JOptionPane.YES_OPTION) {
+
+        if (confirmation == JOptionPane.YES_OPTION) {
             statement.execute();
             JOptionPane.showMessageDialog(null, "Berhasil menghapus akun!");
         }
     }
-    
+
     private void addAkun(String username, String password, String nama_lengkap, String alamat, String tanggal_lahir, String role) throws SQLException {
         boolean userExists = isUsernameDuplicateForAkun(username);
 
@@ -104,12 +131,12 @@ public class Menu1 extends javax.swing.JInternalFrame {
             statement.setString(6, tanggal_lahir);
             statement.setString(7, role);
             statement.execute();
-            
+
             this.dispose();
             JOptionPane.showMessageDialog(null, "Berhasil Menambahan Akun baru!");
         }
     }
-    
+
     private void TampilDataUser() {
         try {
             st = cn.createStatement();
@@ -118,7 +145,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
             model.addColumn("Nomor Akun");
             model.addColumn("Username");
             model.addColumn("Password");
-            model.addColumn("Nama Lengkap");            
+            model.addColumn("Nama Lengkap");
             model.addColumn("Alamat");
             model.addColumn("Role");
             model.addColumn("Actions");
@@ -126,9 +153,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
             model.fireTableDataChanged();
             model.setRowCount(0);
             UserTable.setRowSelectionAllowed(true);
-            
-            
-            
+
             while (rs.next()) {
                 Object[] data = {
                     rs.getString("nomor_akun"),
@@ -136,9 +161,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
                     rs.getString("password"),
                     rs.getString("nama_lengkap"),
                     rs.getString("alamat"),
-                    rs.getString("role"),
-                };
-                
+                    rs.getString("role"),};
+
                 model.addRow(data);
                 UserTable.setModel(model);
             }
@@ -247,7 +271,7 @@ public class Menu1 extends javax.swing.JInternalFrame {
                 parentComponent.setEnabled(true);
             }
         });
-        
+
         parentComponent.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 

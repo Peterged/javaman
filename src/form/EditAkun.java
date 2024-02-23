@@ -28,51 +28,95 @@ public class EditAkun extends javax.swing.JFrame {
     Connection cn;
     public Statement st;
     public ResultSet rs;
+    public String noAkun;
 
-    public EditAkun(Connection connection) {
+    public EditAkun(Connection connection, String nomorAkun) throws SQLException {
         initComponents();
         cn = connection;
         this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+
+        nomorAkunLabel.setText(!nomorAkun.equals("") ? nomorAkun : "Not Found!");
+        
+        if (nomorAkun.equals("")) {
+            JOptionPane.showMessageDialog(null, "Nomor Akun tidak ditemukan!, mohon dicoba lagi!");
+            this.dispose();
+        }
+        noAkun = nomorAkun;
+
+        ResultSet result = getAkun(nomorAkun);
+
+        while (result.next()) {
+            String username = result.getString("username");
+            String password = result.getString("password");
+            String nama_lengkap = result.getString("nama_lengkap");
+            String alamat = result.getString("alamat");
+            String role = result.getString("role");
+            String tanggal_lahir = result.getString("tanggal_lahir");
+
+            namaLengkapField.setText(nama_lengkap);
+            usernameField.setText(username);
+            passwordField.setText(password);
+            alamatField.setText(alamat);
+            tanggalLahirField.setText(tanggal_lahir);
+
+            for (int i = 0; i < roleCombobox.getItemCount(); i++) {
+                if (roleCombobox.getItemAt(i).equals(role)) {
+                    roleCombobox.setSelectedItem(roleCombobox.getItemAt(i));
+                    break;
+                }
+            }
+        }
     }
 
     private boolean doesAkunExistForNomorAkun(String nomorAkun) {
         boolean exists = false;
         try {
             st = cn.createStatement();
-            rs = st.executeQuery("SELECT id FROM akun WHERE nomor_akun = '" + nomorAun + "'");
+            rs = st.executeQuery("SELECT id FROM akun WHERE nomor_akun = '" + nomorAkun + "'");
 
             while (rs.next()) {
                 exists = true;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-
         }
         return exists;
     }
 
-    private void editAkun(String nomorAkun, String username, String password, String nama_lengkap, String alamat, String tanggal_lahir, String role) throws SQLException {
+    private ResultSet getAkun(String nomorAkun) {
+        boolean exists = false;
+
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery("SELECT * from akun WHERE nomor_akun = '" + nomorAkun + "'");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return rs;
+    }
+
+    private void updateAkun(String nomorAkun, String username, String password, String nama_lengkap, String alamat, String tanggal_lahir, String role) throws SQLException {
         boolean userExists = doesAkunExistForNomorAkun(nomorAkun);
 
-        if (userExists) {
-            JOptionPane.showMessageDialog(null, "Username \"" + username + "\" sudah ada!");
-        } else {
-            long number = (long) Math.floor(Math.random() * 9000000000000L) + 1000000000000L;
-            String nomorAkun = String.valueOf(number);
-            st = cn.createStatement();
-            String query = "INSERT INTO akun (nomor_akun, username, password, nama_lengkap, alamat, tanggal_lahir, role) VALUES(?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = cn.prepareStatement(query);
-            statement.setString(1, nomorAkun);
-            statement.setString(2, username);
-            statement.setString(3, password);
-            statement.setString(4, nama_lengkap);
-            statement.setString(5, alamat);
-            statement.setString(6, tanggal_lahir);
-            statement.setString(7, role);
-            statement.execute();
-            
+        if (!userExists) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan, mohon dicoba lagi!");
             this.dispose();
-            JOptionPane.showMessageDialog(null, "Berhasil Menambahan Akun baru!");
+        } else {
+
+            st = cn.createStatement();
+            String updateQuery = "UPDATE akun SET username = ?, password = ?, nama_lengkap = ?, alamat = ?, tanggal_lahir = ?, role = ? WHERE nomor_akun = ?";
+            PreparedStatement statement = cn.prepareStatement(updateQuery);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setString(3, nama_lengkap);
+            statement.setString(4, alamat);
+            statement.setString(5, tanggal_lahir);
+            statement.setString(6, role);
+            statement.setString(7, nomorAkun);
+            statement.execute();
+
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Berhasil mengubah data akun");
         }
     }
 
@@ -86,7 +130,7 @@ public class EditAkun extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        title = new javax.swing.JLabel();
+        nomorAkunLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tanggalLahirField = new javax.swing.JTextField();
@@ -100,6 +144,7 @@ public class EditAkun extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         submitBtn1 = new javax.swing.JButton();
+        title1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Daftar Akun Baru");
@@ -114,10 +159,10 @@ public class EditAkun extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(810, 550));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        title.setFont(new java.awt.Font("Montserrat Medium", 1, 30)); // NOI18N
-        title.setForeground(new java.awt.Color(255, 147, 2));
-        title.setText("Edit Akun - 8862870272303");
-        jPanel2.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 620, -1));
+        nomorAkunLabel.setFont(new java.awt.Font("Montserrat Medium", 1, 30)); // NOI18N
+        nomorAkunLabel.setForeground(new java.awt.Color(255, 147, 2));
+        nomorAkunLabel.setText("8862870272303");
+        jPanel2.add(nomorAkunLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 240, -1));
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         jLabel3.setText("Alamat");
@@ -223,6 +268,11 @@ public class EditAkun extends javax.swing.JFrame {
         });
         jPanel2.add(submitBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 730, 50));
 
+        title1.setFont(new java.awt.Font("Montserrat Medium", 1, 30)); // NOI18N
+        title1.setForeground(new java.awt.Color(255, 147, 2));
+        title1.setText("Edit Akun -");
+        jPanel2.add(title1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 180, -1));
+
         getContentPane().add(jPanel2, new java.awt.GridBagConstraints());
 
         pack();
@@ -261,7 +311,7 @@ public class EditAkun extends javax.swing.JFrame {
         String alamat = alamatField.getText();
         String tanggalLahir = tanggalLahirField.getText();
         String username = usernameField.getText();
-        String password = passwordField.getText();
+        String password = new String(passwordField.getPassword());
         String role = roleCombobox.getItemAt(roleCombobox.getSelectedIndex()).toLowerCase();
 
         String regex = "^(\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$";
@@ -283,7 +333,7 @@ public class EditAkun extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Format Tanggal Lahir salah! Tahun-Bulan-Hari -> 2006-10-27");
         } else {
             try {
-                addAkun(username, password, namaLengkap, alamat, tanggalLahir, role);
+                updateAkun(noAkun, username, password, namaLengkap, alamat, tanggalLahir, role);
             } catch (SQLException ex) {
                 Logger.getLogger(EditAkun.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -338,11 +388,12 @@ public class EditAkun extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField namaLengkapField;
+    private javax.swing.JLabel nomorAkunLabel;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JComboBox<String> roleCombobox;
     private javax.swing.JButton submitBtn1;
     private javax.swing.JTextField tanggalLahirField;
-    private javax.swing.JLabel title;
+    private javax.swing.JLabel title1;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 

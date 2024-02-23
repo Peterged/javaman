@@ -14,7 +14,6 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -288,8 +287,6 @@ public class TambahAkun extends javax.swing.JFrame {
                 Logger.getLogger(TambahAkun.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-
     }//GEN-LAST:event_submitBtn1MouseClicked
 
     /**
@@ -318,7 +315,7 @@ public class TambahAkun extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TambahAkun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
