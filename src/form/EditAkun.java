@@ -145,24 +145,26 @@ public class EditAkun extends javax.swing.JFrame {
         passwordField = new javax.swing.JPasswordField();
         submitBtn1 = new javax.swing.JButton();
         title1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        emailField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Daftar Akun Baru");
-        setMinimumSize(new java.awt.Dimension(810, 540));
+        setMinimumSize(new java.awt.Dimension(810, 600));
         setResizable(false);
-        setSize(new java.awt.Dimension(809, 450));
+        setSize(new java.awt.Dimension(810, 610));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setToolTipText("");
-        jPanel2.setMinimumSize(new java.awt.Dimension(810, 550));
-        jPanel2.setPreferredSize(new java.awt.Dimension(810, 550));
+        jPanel2.setMinimumSize(new java.awt.Dimension(810, 610));
+        jPanel2.setPreferredSize(new java.awt.Dimension(810, 610));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nomorAkunLabel.setFont(new java.awt.Font("Montserrat Medium", 1, 30)); // NOI18N
-        nomorAkunLabel.setForeground(new java.awt.Color(255, 147, 2));
+        nomorAkunLabel.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        nomorAkunLabel.setForeground(new java.awt.Color(153, 153, 153));
         nomorAkunLabel.setText("8862870272303");
-        jPanel2.add(nomorAkunLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 240, -1));
+        jPanel2.add(nomorAkunLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 380, -1));
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         jLabel3.setText("Alamat");
@@ -172,7 +174,7 @@ public class EditAkun extends javax.swing.JFrame {
         jLabel4.setText("Nama Lengkap");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 160, 20));
 
-        tanggalLahirField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        tanggalLahirField.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         tanggalLahirField.setForeground(new java.awt.Color(64, 64, 64));
         tanggalLahirField.setMargin(new java.awt.Insets(3, 6, 2, 6));
         tanggalLahirField.addActionListener(new java.awt.event.ActionListener() {
@@ -182,15 +184,15 @@ public class EditAkun extends javax.swing.JFrame {
         });
         jPanel2.add(tanggalLahirField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 350, 40));
 
-        jLabel5.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel5.setText("Tanggal Lahir");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 160, 20));
 
-        jLabel7.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel7.setText("Tipe Akun");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 160, 20));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 160, 20));
 
-        roleCombobox.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        roleCombobox.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         roleCombobox.setForeground(new java.awt.Color(64, 64, 64));
         roleCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin" }));
         roleCombobox.setToolTipText("Tipe Akun");
@@ -201,9 +203,9 @@ public class EditAkun extends javax.swing.JFrame {
                 roleComboboxMousePressed(evt);
             }
         });
-        jPanel2.add(roleCombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 350, 40));
+        jPanel2.add(roleCombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 350, 40));
 
-        namaLengkapField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        namaLengkapField.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         namaLengkapField.setForeground(new java.awt.Color(64, 64, 64));
         namaLengkapField.setMargin(new java.awt.Insets(3, 6, 2, 6));
         namaLengkapField.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +215,7 @@ public class EditAkun extends javax.swing.JFrame {
         });
         jPanel2.add(namaLengkapField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 350, 40));
 
-        alamatField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        alamatField.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         alamatField.setForeground(new java.awt.Color(64, 64, 64));
         alamatField.setMargin(new java.awt.Insets(3, 6, 2, 6));
         alamatField.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +229,7 @@ public class EditAkun extends javax.swing.JFrame {
         jLabel6.setText("Username");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 160, 20));
 
-        usernameField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        usernameField.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         usernameField.setForeground(new java.awt.Color(64, 64, 64));
         usernameField.setMargin(new java.awt.Insets(3, 6, 2, 6));
         usernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -241,7 +243,7 @@ public class EditAkun extends javax.swing.JFrame {
         jLabel8.setText("Password");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 160, 20));
 
-        passwordField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        passwordField.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         passwordField.setForeground(new java.awt.Color(64, 64, 64));
         passwordField.setMargin(new java.awt.Insets(2, 15, 2, 6));
         passwordField.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +254,7 @@ public class EditAkun extends javax.swing.JFrame {
         jPanel2.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, 350, 40));
 
         submitBtn1.setBackground(new java.awt.Color(255, 147, 2));
-        submitBtn1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
+        submitBtn1.setFont(new java.awt.Font("Inter SemiBold", 1, 18)); // NOI18N
         submitBtn1.setForeground(new java.awt.Color(255, 255, 255));
         submitBtn1.setText("UPDATE");
         submitBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -266,12 +268,26 @@ public class EditAkun extends javax.swing.JFrame {
                 submitBtn1ActionPerformed(evt);
             }
         });
-        jPanel2.add(submitBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 730, 50));
+        jPanel2.add(submitBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 730, 50));
 
-        title1.setFont(new java.awt.Font("Montserrat Medium", 1, 30)); // NOI18N
+        title1.setFont(new java.awt.Font("Inter SemiBold", 1, 30)); // NOI18N
         title1.setForeground(new java.awt.Color(255, 147, 2));
-        title1.setText("Edit Akun -");
+        title1.setText("Edit Akun");
         jPanel2.add(title1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 180, -1));
+
+        jLabel9.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        jLabel9.setText("Email");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 160, 20));
+
+        emailField1.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        emailField1.setForeground(new java.awt.Color(64, 64, 64));
+        emailField1.setMargin(new java.awt.Insets(3, 6, 2, 6));
+        emailField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailField1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(emailField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 350, 40));
 
         getContentPane().add(jPanel2, new java.awt.GridBagConstraints());
 
@@ -342,6 +358,10 @@ public class EditAkun extends javax.swing.JFrame {
 
     }//GEN-LAST:event_submitBtn1MouseClicked
 
+    private void emailField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -380,12 +400,14 @@ public class EditAkun extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alamatField;
+    private javax.swing.JTextField emailField1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField namaLengkapField;
     private javax.swing.JLabel nomorAkunLabel;

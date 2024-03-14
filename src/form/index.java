@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class index extends javax.swing.JFrame {
-
     public boolean skipLogin = true;
     public String skipLoginUsername = "admin";
     public String skipLoginPassword = "admin";
@@ -30,7 +29,6 @@ public class index extends javax.swing.JFrame {
             if (!exists) {
                 JOptionPane.showMessageDialog(null, "Username / Password Salah!");
                 System.exit(0);
-                
             } else {
                 String role = result[1];
                 String nomor_akun = result[2];

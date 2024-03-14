@@ -170,7 +170,7 @@
                       <Image iconType="3" name="/img/dashboard_20x20.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Daftar Akun"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="toolTipText" type="java.lang.String" value="Daftar Akun"/>
                     <Property name="iconTextGap" type="int" value="8"/>
                   </Properties>
                   <Events>
@@ -223,7 +223,7 @@
                       <Image iconType="3" name="/img/transaction_20x20.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Daftar Transaksi"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="toolTipText" type="java.lang.String" value="Daftar Transaksi"/>
                     <Property name="iconTextGap" type="int" value="8"/>
                   </Properties>
                   <Events>

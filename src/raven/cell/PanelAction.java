@@ -55,6 +55,11 @@ public class PanelAction extends javax.swing.JPanel {
         cmdDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/raven/cell/tabler_trash.png"))); // NOI18N
 
         cmdEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/raven/cell/edit_icon.png"))); // NOI18N
+        cmdEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdEditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -77,6 +82,10 @@ public class PanelAction extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdEditActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -57,6 +57,9 @@
           <Image iconType="3" name="/raven/cell/edit_icon.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdEditActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

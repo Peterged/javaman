@@ -113,7 +113,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
     }
 
     private void addAkun(String username, String password, String nama_lengkap, String alamat, String tanggal_lahir, String role) throws SQLException {
-        boolean userExists = isUsernameDuplicateForAkun(username);
+        boolean userExists;
+        userExists = isUsernameDuplicateForAkun(username);
 
         if (userExists) {
             JOptionPane.showMessageDialog(null, "Username \"" + username + "\" sudah ada!");
@@ -243,6 +244,11 @@ public class Menu1 extends javax.swing.JInternalFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 150, 35));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,19 +267,28 @@ public class Menu1 extends javax.swing.JInternalFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         TambahAkun tambahAkun = new TambahAkun(cn);
-
-        tambahAkun.setVisible(true);
         parentComponent.setEnabled(false);
+        tambahAkun.setVisible(true);
+        
+        
+        
 
         tambahAkun.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 parentComponent.setEnabled(true);
+                parentComponent.toFront();
             }
         });
-
+        
         parentComponent.setVisible(true);
+  
+        tambahAkun.toFront();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -282,4 +297,8 @@ public class Menu1 extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isUsernameDuplicateForAkun(String username) {
+        
+    }
 }

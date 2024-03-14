@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -127,7 +130,7 @@ public class Home extends javax.swing.JFrame {
         LabelMenu1.setForeground(new java.awt.Color(203, 116, 0));
         LabelMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dashboard_20x20.png"))); // NOI18N
         LabelMenu1.setText("Daftar Akun");
-        LabelMenu1.setToolTipText("");
+        LabelMenu1.setToolTipText("Daftar Akun");
         LabelMenu1.setIconTextGap(8);
         LabelMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,7 +161,7 @@ public class Home extends javax.swing.JFrame {
         LabelMenu2.setForeground(new java.awt.Color(203, 116, 0));
         LabelMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/transaction_20x20.png"))); // NOI18N
         LabelMenu2.setText("Daftar Transaksi");
-        LabelMenu2.setToolTipText("");
+        LabelMenu2.setToolTipText("Daftar Transaksi");
         LabelMenu2.setIconTextGap(8);
         LabelMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -295,7 +298,12 @@ public class Home extends javax.swing.JFrame {
 
     private void LabelMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelMenu1MouseClicked
         if ("user".equals(myRole)) {
-            UserHome userHome = new UserHome(this, NomorAkun);
+            UserHome userHome = null;
+            try {
+                userHome = new UserHome(this, NomorAkun);
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
             jPanel2.removeAll();
             jPanel2.add(userHome).setVisible(true);
             pageTitle.setText("Home");
