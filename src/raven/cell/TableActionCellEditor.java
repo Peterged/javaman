@@ -15,7 +15,7 @@ import javax.swing.JTextField;
  * @author User
  */
 public class TableActionCellEditor extends DefaultCellEditor {
-    private TableActionEvent event;
+    final private TableActionEvent event;
     public TableActionCellEditor(TableActionEvent Event) {
         super(new JCheckBox());
         event = Event;

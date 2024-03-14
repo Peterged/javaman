@@ -3,7 +3,7 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Firebank | LOGIN"/>
+    <Property name="title" type="java.lang.String" value="Aquabank | LOGIN"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
@@ -71,7 +71,7 @@
         <Component class="javax.swing.JButton" name="loginSubmit">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2" green="93" red="ff" type="rgb"/>
+              <Color blue="ff" green="ca" red="4e" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Montserrat" size="18" style="1"/>
@@ -100,25 +100,25 @@
               <Font name="Montserrat Medium" size="44" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2" green="93" red="ff" type="rgb"/>
+              <Color blue="ff" green="ca" red="4e" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Firebank"/>
+            <Property name="text" type="java.lang.String" value="Aquabank"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="140" y="70" width="220" height="-1"/>
+              <AbsoluteConstraints x="130" y="70" width="250" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/Firebank_Logo_44x72.png"/>
+              <Image iconType="3" name="/img/logos/BLUE-Firebank_Logo_44x74.png"/>
             </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="60" width="-1" height="-1"/>
+              <AbsoluteConstraints x="70" y="60" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -167,7 +167,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Montserrat" size="16" style="0"/>
+              <Font name="Inter" size="16" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Password"/>
           </Properties>
@@ -180,7 +180,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Montserrat" size="16" style="0"/>
+              <Font name="Inter" size="16" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Username"/>
           </Properties>

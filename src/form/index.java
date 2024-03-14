@@ -9,20 +9,22 @@ package form;
  * @author Yoga
  */
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 
 public class index extends javax.swing.JFrame {
     public boolean skipLogin = true;
-    public String skipLoginUsername = "admin";
-    public String skipLoginPassword = "admin";
+    public String skipLoginUsername = "user";
+    public String skipLoginPassword = "user";
     public Statement st;
     public ResultSet rs;
     Connection cn = koneksi.KoneksiDatabase.BukaKoneksi();
 
-    public index() {
+    public index() throws SQLException {
         initComponents();
-
+        
         if (skipLogin) {
             String[] result = getUser(skipLoginUsername, skipLoginPassword);
             boolean exists = !result[0].isEmpty();
@@ -32,8 +34,9 @@ public class index extends javax.swing.JFrame {
             } else {
                 String role = result[1];
                 String nomor_akun = result[2];
+                String username = result[3];
 
-                Home home = new Home(nomor_akun, role);
+                Home home = new Home(nomor_akun, role, username);
                 home.setVisible(true);
 
             }
@@ -54,20 +57,22 @@ public class index extends javax.swing.JFrame {
 
         String role = "";
         String nomor_akun = "";
+        String resultUsername = "";
         boolean exists = false;
         try {
             st = cn.createStatement();
-            rs = st.executeQuery("SELECT role, nomor_akun FROM akun WHERE username = '" + username + "' AND password = '" + password + "' LIMIT 1");
+            rs = st.executeQuery("SELECT role, nomor_akun, username FROM akun WHERE username = '" + username + "' AND password = '" + password + "' LIMIT 1");
 
             while (rs.next()) {
                 role = rs.getString("role");
                 nomor_akun = rs.getString("nomor_akun");
+                resultUsername = rs.getString("username");
                 exists = true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         String strExists = exists ? "1" : "";
-        String[] result = {strExists, role, nomor_akun};
+        String[] result = {strExists, role, nomor_akun, resultUsername};
         return result;
     }
 
@@ -90,7 +95,7 @@ public class index extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Firebank | LOGIN");
+        setTitle("Aquabank | LOGIN");
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -106,7 +111,7 @@ public class index extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(430, 500));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        loginSubmit.setBackground(new java.awt.Color(255, 147, 2));
+        loginSubmit.setBackground(new java.awt.Color(78, 202, 255));
         loginSubmit.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         loginSubmit.setForeground(new java.awt.Color(255, 255, 255));
         loginSubmit.setText("LOGIN");
@@ -124,12 +129,12 @@ public class index extends javax.swing.JFrame {
         jPanel2.add(loginSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 350, 50));
 
         jLabel6.setFont(new java.awt.Font("Montserrat Medium", 1, 44)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 147, 2));
-        jLabel6.setText("Firebank");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 220, -1));
+        jLabel6.setForeground(new java.awt.Color(78, 202, 255));
+        jLabel6.setText("Aquabank");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 250, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Firebank_Logo_44x72.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logos/BLUE-Firebank_Logo_44x74.png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
 
         passwordField.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         passwordField.setForeground(new java.awt.Color(64, 64, 64));
@@ -151,11 +156,11 @@ public class index extends javax.swing.JFrame {
         });
         jPanel2.add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 350, 50));
 
-        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel2.setText("Password");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 160, 20));
 
-        jLabel3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
         jLabel3.setText("Username");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 160, 20));
 
@@ -185,15 +190,23 @@ public class index extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Password Diperlukan!");
         } else {
             String[] result = getUser(username, password);
-            boolean exists = !result[0].isEmpty() ? true : false;
+            boolean exists = !result[0].isEmpty();
             if (!exists) {
                 JOptionPane.showMessageDialog(null, "Username / Password Salah!");
             } else {
                 String role = result[1];
                 String nomor_akun = result[2];
+                System.out.println(nomor_akun);               
+                System.out.println(role);
                 this.dispose();
-                Home home = new Home(nomor_akun, role);
-                home.setVisible(true);
+                Home home;
+                try {
+                    home = new Home(nomor_akun, role, username);
+                    home.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
 
         }
@@ -201,8 +214,9 @@ public class index extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -228,10 +242,16 @@ public class index extends javax.swing.JFrame {
 
         /* Create and display the form */
         index idx = new index();
+        
         if (!idx.skipLogin) {
             java.awt.EventQueue.invokeLater(new Runnable() {
+                @Override
                 public void run() {
-                    new index().setVisible(true);
+                    try {
+                        new index().setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(index.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });
         }

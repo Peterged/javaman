@@ -23,15 +23,17 @@ public class Home extends javax.swing.JFrame {
      */
     public String NomorAkun = "";
     public String myRole = "";
+    public String username = "";
     public Statement st;
     public ResultSet rs;
     Connection cn = koneksi.KoneksiDatabase.BukaKoneksi();
     Color DefaultColor, ClickedColor;
 
-    public Home(String nomorAkun, String role) {
+    public Home(String nomorAkun, String role, String username) throws SQLException {
         initComponents();
-        DefaultColor = new Color(255, 249, 235);
-        ClickedColor = new Color(255, 237, 194);
+        setTitle("Aquabank");
+        DefaultColor = new Color(78, 202, 255);
+        ClickedColor = new Color(128, 217, 255);
 
         // Set default color to pan on run time
         Menu1.setBackground(ClickedColor);
@@ -39,6 +41,7 @@ public class Home extends javax.swing.JFrame {
         Menu3.setBackground(DefaultColor);
         myRole = role;
         NomorAkun = nomorAkun;
+        this.username = username;
         if ("user".equals(role)) {
             handleUserRoleForPanel(role);
         } else {
@@ -48,20 +51,22 @@ public class Home extends javax.swing.JFrame {
         }
 
         role = role.substring(0, 1).toUpperCase() + role.substring(1);
-        roleLabel.setText(role);
-
+        usernameLabel.setText(username);
+        nomorAkunLabel.setText(nomorAkun);
     }
+    
+    private Home() {}
 
-    private void handleUserRoleForPanel(String role) {
+    private void handleUserRoleForPanel(String role) throws SQLException {
         if ("user".equals(role)) {
             UserHome userHome = new UserHome(this, NomorAkun);
             jPanel2.removeAll();
             jPanel2.add(userHome).setVisible(true);
-            LabelMenu1.setText("Home");
-            LabelMenu2.setText("Transaksi Saya");
-            pageTitle.setText("Home");
+            LabelMenu1.setText("Dashboard");
+            LabelMenu2.setText("Transaksi");
+            pageTitle.setText("Dashboard");
         } else if ("admin".equals(role)) {
-
+            
         }
     }
 
@@ -75,17 +80,22 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        pageTitle = new javax.swing.JLabel();
         sidebarPanel = new javax.swing.JPanel();
-        roleLabel = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         Menu1 = new javax.swing.JPanel();
         LabelMenu1 = new javax.swing.JLabel();
         Menu2 = new javax.swing.JPanel();
         LabelMenu2 = new javax.swing.JLabel();
         Menu3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        pageTitle = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        circlePanel1 = new raven.swing.CirclePanel();
+        jLabel1 = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        nomorAkunLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,17 +111,35 @@ public class Home extends javax.swing.JFrame {
         mainPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
         mainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        sidebarPanel.setBackground(new java.awt.Color(255, 249, 235));
+        jPanel1.setBackground(new java.awt.Color(78, 202, 255));
 
-        roleLabel.setFont(new java.awt.Font("Montserrat Light", 1, 16)); // NOI18N
-        roleLabel.setForeground(new java.awt.Color(255, 188, 98));
-        roleLabel.setText("Admin");
+        pageTitle.setBackground(new java.awt.Color(0, 0, 0));
+        pageTitle.setFont(new java.awt.Font("Inter", 1, 24)); // NOI18N
+        pageTitle.setForeground(new java.awt.Color(255, 255, 255));
+        pageTitle.setText("Daftar Akun");
 
-        jLabel7.setFont(new java.awt.Font("Montserrat SemiBold", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 147, 2));
-        jLabel7.setText("Firebank");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(pageTitle)
+                .addContainerGap(837, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(pageTitle)
+                .addGap(20, 20, 20))
+        );
 
-        Menu1.setBackground(new java.awt.Color(255, 237, 194));
+        mainPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 1000, 60));
+
+        sidebarPanel.setBackground(new java.awt.Color(78, 202, 255));
+
+        Menu1.setBackground(new java.awt.Color(128, 217, 255));
         Menu1.setForeground(new java.awt.Color(255, 237, 194));
         Menu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Menu1.setPreferredSize(new java.awt.Dimension(232, 44));
@@ -126,9 +154,9 @@ public class Home extends javax.swing.JFrame {
         });
         Menu1.setLayout(new java.awt.CardLayout(10, 12));
 
-        LabelMenu1.setFont(new java.awt.Font("Montserrat Medium", 0, 16)); // NOI18N
-        LabelMenu1.setForeground(new java.awt.Color(203, 116, 0));
-        LabelMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dashboard_20x20.png"))); // NOI18N
+        LabelMenu1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 16)); // NOI18N
+        LabelMenu1.setForeground(new java.awt.Color(255, 255, 255));
+        LabelMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/firebank-dashboard.png"))); // NOI18N
         LabelMenu1.setText("Daftar Akun");
         LabelMenu1.setToolTipText("Daftar Akun");
         LabelMenu1.setIconTextGap(8);
@@ -142,7 +170,7 @@ public class Home extends javax.swing.JFrame {
         });
         Menu1.add(LabelMenu1, "card2");
 
-        Menu2.setBackground(new java.awt.Color(255, 237, 194));
+        Menu2.setBackground(new java.awt.Color(128, 217, 255));
         Menu2.setForeground(new java.awt.Color(255, 237, 194));
         Menu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Menu2.setPreferredSize(new java.awt.Dimension(232, 44));
@@ -157,9 +185,9 @@ public class Home extends javax.swing.JFrame {
         });
         Menu2.setLayout(new java.awt.CardLayout(10, 12));
 
-        LabelMenu2.setFont(new java.awt.Font("Montserrat Medium", 0, 16)); // NOI18N
-        LabelMenu2.setForeground(new java.awt.Color(203, 116, 0));
-        LabelMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/transaction_20x20.png"))); // NOI18N
+        LabelMenu2.setFont(new java.awt.Font("Inter SemiBold", 0, 16)); // NOI18N
+        LabelMenu2.setForeground(new java.awt.Color(255, 255, 255));
+        LabelMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/firebank-transaction-white.png"))); // NOI18N
         LabelMenu2.setText("Daftar Transaksi");
         LabelMenu2.setToolTipText("Daftar Transaksi");
         LabelMenu2.setIconTextGap(8);
@@ -173,7 +201,7 @@ public class Home extends javax.swing.JFrame {
         });
         Menu2.add(LabelMenu2, "card2");
 
-        Menu3.setBackground(new java.awt.Color(255, 237, 194));
+        Menu3.setBackground(new java.awt.Color(128, 217, 255));
         Menu3.setForeground(new java.awt.Color(255, 237, 194));
         Menu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Menu3.setPreferredSize(new java.awt.Dimension(232, 44));
@@ -185,9 +213,9 @@ public class Home extends javax.swing.JFrame {
         });
         Menu3.setLayout(new java.awt.CardLayout(10, 12));
 
-        jLabel3.setFont(new java.awt.Font("Montserrat Medium", 0, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(203, 116, 0));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logout_20x20.png"))); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Inter SemiBold", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/firebank-logout-WHITE.png"))); // NOI18N
         jLabel3.setText("Logout");
         jLabel3.setToolTipText("");
         jLabel3.setIconTextGap(8);
@@ -198,6 +226,37 @@ public class Home extends javax.swing.JFrame {
         });
         Menu3.add(jLabel3, "card2");
 
+        jLabel8.setFont(new java.awt.Font("Montserrat SemiBold", 1, 30)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Aquabank");
+
+        jLabel7.setFont(new java.awt.Font("Montserrat SemiBold", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logos/WHITE-Firebank_Logo_33x54.png"))); // NOI18N
+
+        jPanel3.setBackground(new java.awt.Color(78, 202, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        circlePanel1.setBackground(new java.awt.Color(255, 255, 255));
+        circlePanel1.setLayout(new java.awt.FlowLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/firebank-profile-30x30.png"))); // NOI18N
+        circlePanel1.add(jLabel1);
+
+        jPanel3.add(circlePanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, -1));
+
+        usernameLabel.setFont(new java.awt.Font("Inter SemiBold", 0, 16)); // NOI18N
+        usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        usernameLabel.setText("Kreshna Dhana");
+        usernameLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel3.add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 140, -1));
+
+        nomorAkunLabel.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        nomorAkunLabel.setForeground(new java.awt.Color(255, 255, 255));
+        nomorAkunLabel.setText("7384783274");
+        nomorAkunLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel3.add(nomorAkunLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 160, -1));
+
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
         sidebarPanel.setLayout(sidebarPanelLayout);
         sidebarPanelLayout.setHorizontalGroup(
@@ -205,60 +264,43 @@ public class Home extends javax.swing.JFrame {
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sidebarPanelLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(roleLabel)))
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8))
                     .addGroup(sidebarPanelLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addComponent(Menu2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Menu3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Menu2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                                .addComponent(Menu1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Menu3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         sidebarPanelLayout.setVerticalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roleLabel)
-                .addGap(18, 18, 18)
+                .addGap(44, 44, 44)
+                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(sidebarPanelLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(56, 56, 56)
                 .addComponent(Menu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Menu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Menu3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
         mainPanel.add(sidebarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 720));
 
-        jPanel1.setBackground(new java.awt.Color(255, 249, 235));
-
-        pageTitle.setBackground(new java.awt.Color(0, 0, 0));
-        pageTitle.setFont(new java.awt.Font("Montserrat SemiBold", 1, 24)); // NOI18N
-        pageTitle.setText("Data Akun");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(pageTitle)
-                .addContainerGap(843, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(pageTitle)
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
-        mainPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 1000, 60));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 670));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -268,10 +310,10 @@ public class Home extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGap(0, 670, Short.MAX_VALUE)
         );
 
-        mainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 1000, 660));
+        mainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 1000, 670));
 
         getContentPane().add(mainPanel, new java.awt.GridBagConstraints());
 
@@ -424,13 +466,18 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Menu1;
     private javax.swing.JPanel Menu2;
     private javax.swing.JPanel Menu3;
+    private raven.swing.CirclePanel circlePanel1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel nomorAkunLabel;
     private javax.swing.JLabel pageTitle;
-    private javax.swing.JLabel roleLabel;
     private javax.swing.JPanel sidebarPanel;
+    private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

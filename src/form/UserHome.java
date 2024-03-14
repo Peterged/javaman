@@ -5,6 +5,8 @@
 package form;
 
 import java.util.regex.*;
+import form.user.Deposit;
+import form.user.Transfer;
 
 /**
  *
@@ -40,6 +42,7 @@ public class UserHome extends javax.swing.JInternalFrame {
      *
      * @param parentComponentParam
      * @param nomorAkun
+     * @throws java.sql.SQLException
      */
     public UserHome(JFrame parentComponentParam, String nomorAkun) throws SQLException {
         parentComponent = parentComponentParam;
@@ -123,63 +126,6 @@ public class UserHome extends javax.swing.JInternalFrame {
         return newBalance;
     }
 
-//    private void addAkun(String username, String password, String nama_lengkap, String alamat, String tanggal_lahir, String role) throws SQLException {
-//        boolean userExists = isUsernameDuplicateForAkun(username);
-//
-//        if (userExists) {
-//            JOptionPane.showMessageDialog(null, "Username \"" + username + "\" sudah ada!");
-//        } else {
-//            long number = (long) Math.floor(Math.random() * 9000000000000L) + 1000000000000L;
-//            String nomorAkun = String.valueOf(number);
-//            st = cn.createStatement();
-//            String query = "INSERT INTO akun (nomor_akun, username, password, nama_lengkap, alamat, tanggal_lahir, role) VALUES(?, ?, ?, ?, ?, ?, ?)";
-//            PreparedStatement statement = cn.prepareStatement(query);
-//            statement.setString(1, nomorAkun);
-//            statement.setString(2, username);
-//            statement.setString(3, password);
-//            statement.setString(4, nama_lengkap);
-//            statement.setString(5, alamat);
-//            statement.setString(6, tanggal_lahir);
-//            statement.setString(7, role);
-//            statement.execute();
-//
-//            this.dispose();
-//            JOptionPane.showMessageDialog(null, "Berhasil Menambahan Akun baru!");
-//        }
-//    }
-//    private void TampilDataUser() {
-//        try {
-//            st = cn.createStatement();
-//            rs = st.executeQuery("SELECT * FROM akun");
-//            DefaultTableModel model = new DefaultTableModel();
-//            model.addColumn("Nomor Akun");
-//            model.addColumn("Username");
-//            model.addColumn("Password");
-//            model.addColumn("Nama Lengkap");
-//            model.addColumn("Alamat");
-//            model.addColumn("Role");
-//            model.addColumn("Actions");
-//            model.getDataVector().removeAllElements();
-//            model.fireTableDataChanged();
-//            model.setRowCount(0);
-//            UserTable.setRowSelectionAllowed(true);
-//
-//            while (rs.next()) {
-//                Object[] data = {
-//                    rs.getString("nomor_akun"),
-//                    rs.getString("username"),
-//                    rs.getString("password"),
-//                    rs.getString("nama_lengkap"),
-//                    rs.getString("alamat"),
-//                    rs.getString("role"),};
-//
-//                model.addRow(data);
-//                UserTable.setModel(model);
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,88 +136,62 @@ public class UserHome extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        withdrawField = new javax.swing.JTextField();
-        depositField = new javax.swing.JTextField();
-        withdrawBtn = new javax.swing.JButton();
-        depositBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        depositLabel = new javax.swing.JLabel();
+        pengeluaranLabel = new javax.swing.JLabel();
         depositLabel1 = new javax.swing.JLabel();
-        withdrawLabel = new javax.swing.JLabel();
+        pengeluaranPercentageLabel = new javax.swing.JLabel();
+        pengeluaranBulanLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        depositLabel4 = new javax.swing.JLabel();
+        pemasukanLabel = new javax.swing.JLabel();
         depositLabel5 = new javax.swing.JLabel();
-        withdrawLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        pemasukanPercentageLabel = new javax.swing.JLabel();
+        pemasukanBulanLabel = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        depositLabel8 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        depositLabel9 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        balanceLabel = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        withdrawLabel3 = new javax.swing.JLabel();
+        transaksiTertundaLabel = new javax.swing.JLabel();
+        depositButton = new javax.swing.JButton();
+        withdrawButton = new javax.swing.JButton();
+        transferButton = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        totalTransaksiLabel = new javax.swing.JLabel();
+        depositLabel11 = new javax.swing.JLabel();
+        pemasukanPercentageLabel1 = new javax.swing.JLabel();
+        depositLabel12 = new javax.swing.JLabel();
+        spTable = new javax.swing.JScrollPane();
+        table1 = new raven.swing.Table();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 660));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 660));
+        setPreferredSize(new java.awt.Dimension(1000, 700));
+
+        jPanel1.setBackground(new java.awt.Color(252, 252, 252));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 670));
+        jPanel1.setName(""); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 670));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Montserrat", 1, 36)); // NOI18N
-        jLabel2.setText("Dashboard");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jPanel2.setBackground(new java.awt.Color(153, 224, 255));
+        jPanel2.setForeground(new java.awt.Color(255, 188, 98));
 
-        withdrawField.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        withdrawField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                withdrawFieldActionPerformed(evt);
-            }
-        });
-        jPanel1.add(withdrawField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 520, 210, 30));
+        pengeluaranLabel.setFont(new java.awt.Font("Inter", 0, 20)); // NOI18N
+        pengeluaranLabel.setForeground(new java.awt.Color(70, 70, 70));
+        pengeluaranLabel.setText("Rp 0");
 
-        depositField.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        depositField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                depositFieldActionPerformed(evt);
-            }
-        });
-        jPanel1.add(depositField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 420, 210, 30));
-
-        withdrawBtn.setBackground(new java.awt.Color(254, 254, 254));
-        withdrawBtn.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        withdrawBtn.setText("Withdraw");
-        withdrawBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        withdrawBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                withdrawBtnMouseClicked(evt);
-            }
-        });
-        jPanel1.add(withdrawBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 520, 120, 30));
-
-        depositBtn.setBackground(new java.awt.Color(254, 254, 254));
-        depositBtn.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        depositBtn.setText("Deposit");
-        depositBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        depositBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                depositBtnMouseClicked(evt);
-            }
-        });
-        depositBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                depositBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(depositBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 420, 120, 30));
-
-        jPanel2.setBackground(new java.awt.Color(255, 147, 2));
-        jPanel2.setForeground(new java.awt.Color(5, 5, 5));
-
-        depositLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
-        depositLabel.setForeground(new java.awt.Color(255, 255, 255));
-        depositLabel.setText("Rp 0");
-
-        depositLabel1.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        depositLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        depositLabel1.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        depositLabel1.setForeground(new java.awt.Color(70, 70, 70));
         depositLabel1.setText("Pengeluaran");
 
-        withdrawLabel.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        withdrawLabel.setForeground(new java.awt.Color(255, 255, 255));
-        withdrawLabel.setText("+0%");
+        pengeluaranPercentageLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        pengeluaranPercentageLabel.setForeground(new java.awt.Color(70, 70, 70));
+        pengeluaranPercentageLabel.setText("+0%");
+
+        pengeluaranBulanLabel.setFont(new java.awt.Font("Inter Light", 0, 14)); // NOI18N
+        pengeluaranBulanLabel.setForeground(new java.awt.Color(100, 100, 100));
+        pengeluaranBulanLabel.setText("n/a");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -280,40 +200,46 @@ public class UserHome extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pengeluaranBulanLabel)
                     .addComponent(depositLabel1)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(withdrawLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(depositLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                    .addComponent(pengeluaranPercentageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pengeluaranLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(depositLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(depositLabel)
+                .addGap(1, 1, 1)
+                .addComponent(pengeluaranBulanLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(pengeluaranLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(withdrawLabel)
+                .addComponent(pengeluaranPercentageLabel)
                 .addGap(25, 25, 25))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 230, 140));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 150));
 
-        jPanel3.setBackground(new java.awt.Color(245, 245, 245));
+        jPanel3.setBackground(new java.awt.Color(178, 232, 255));
         jPanel3.setForeground(new java.awt.Color(5, 5, 5));
 
-        depositLabel4.setFont(new java.awt.Font("Montserrat SemiBold", 0, 20)); // NOI18N
-        depositLabel4.setForeground(new java.awt.Color(50, 50, 50));
-        depositLabel4.setText("Rp 0");
+        pemasukanLabel.setFont(new java.awt.Font("Inter", 0, 20)); // NOI18N
+        pemasukanLabel.setForeground(new java.awt.Color(60, 60, 60));
+        pemasukanLabel.setText("Rp 0");
 
-        depositLabel5.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        depositLabel5.setForeground(new java.awt.Color(50, 50, 50));
+        depositLabel5.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        depositLabel5.setForeground(new java.awt.Color(60, 60, 60));
         depositLabel5.setText("Pemasukan");
 
-        withdrawLabel2.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        withdrawLabel2.setForeground(new java.awt.Color(50, 50, 50));
-        withdrawLabel2.setText("+0%");
+        pemasukanPercentageLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        pemasukanPercentageLabel.setForeground(new java.awt.Color(60, 60, 60));
+        pemasukanPercentageLabel.setText("+0%");
+
+        pemasukanBulanLabel.setFont(new java.awt.Font("Inter Light", 0, 14)); // NOI18N
+        pemasukanBulanLabel.setForeground(new java.awt.Color(100, 100, 100));
+        pemasukanBulanLabel.setText("n/a");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -322,130 +248,286 @@ public class UserHome extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pemasukanBulanLabel)
                     .addComponent(depositLabel5)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(withdrawLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(depositLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                    .addComponent(pemasukanPercentageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pemasukanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(depositLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(depositLabel4)
+                .addGap(1, 1, 1)
+                .addComponent(pemasukanBulanLabel)
+                .addGap(18, 18, 18)
+                .addComponent(pemasukanLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(withdrawLabel2)
+                .addComponent(pemasukanPercentageLabel)
                 .addGap(25, 25, 25))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 230, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 210, 150));
 
-        jButton1.setBackground(new java.awt.Color(254, 254, 254));
-        jButton1.setFont(new java.awt.Font("Inter ExtraBold", 1, 14)); // NOI18N
-        jButton1.setText("Withdraw");
-        jButton1.setToolTipText("");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.setRequestFocusEnabled(false);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, 150, 35));
+        jPanel5.setBackground(new java.awt.Color(252, 252, 252));
 
-        jButton2.setBackground(new java.awt.Color(254, 254, 254));
-        jButton2.setFont(new java.awt.Font("Inter ExtraBold", 1, 14)); // NOI18N
-        jButton2.setText("Deposit");
-        jButton2.setToolTipText("");
-        jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setFocusable(false);
-        jButton2.setRequestFocusEnabled(false);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        depositLabel8.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        depositLabel8.setForeground(new java.awt.Color(160, 160, 160));
+        depositLabel8.setText("Balance");
+        depositLabel8.setMaximumSize(new java.awt.Dimension(60, 18));
+        depositLabel8.setMinimumSize(new java.awt.Dimension(60, 18));
+        depositLabel8.setPreferredSize(new java.awt.Dimension(60, 18));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(depositLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(depositLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, 50));
+
+        jPanel6.setBackground(new java.awt.Color(252, 252, 252));
+
+        depositLabel9.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
+        depositLabel9.setForeground(new java.awt.Color(160, 160, 160));
+        depositLabel9.setText("Utang");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(depositLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(depositLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 70, -1));
+
+        jPanel4.setBackground(new java.awt.Color(252, 252, 252));
+        jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(237, 237, 237), 2, true));
+        jPanel4.setForeground(new java.awt.Color(5, 5, 5));
+
+        balanceLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        balanceLabel.setForeground(new java.awt.Color(75, 75, 75));
+        balanceLabel.setText("Rp 0");
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        withdrawLabel3.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        withdrawLabel3.setForeground(new java.awt.Color(51, 204, 0));
+        withdrawLabel3.setText("+0%");
+
+        transaksiTertundaLabel.setFont(new java.awt.Font("Montserrat SemiBold", 0, 18)); // NOI18N
+        transaksiTertundaLabel.setForeground(new java.awt.Color(75, 75, 75));
+        transaksiTertundaLabel.setText("Rp 0");
+
+        depositButton.setBackground(new java.awt.Color(254, 254, 254));
+        depositButton.setFont(new java.awt.Font("Inter ExtraBold", 1, 14)); // NOI18N
+        depositButton.setText("Deposit");
+        depositButton.setToolTipText("Deposit");
+        depositButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        depositButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        depositButton.setFocusable(false);
+        depositButton.setMaximumSize(new java.awt.Dimension(75, 20));
+        depositButton.setMinimumSize(new java.awt.Dimension(75, 20));
+        depositButton.setPreferredSize(new java.awt.Dimension(75, 20));
+        depositButton.setRequestFocusEnabled(false);
+        depositButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                depositButtonMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        depositButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                depositButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 150, 35));
+
+        withdrawButton.setBackground(new java.awt.Color(254, 254, 254));
+        withdrawButton.setFont(new java.awt.Font("Inter ExtraBold", 1, 14)); // NOI18N
+        withdrawButton.setText("Withdraw");
+        withdrawButton.setToolTipText("Withdraw");
+        withdrawButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        withdrawButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        withdrawButton.setFocusable(false);
+        withdrawButton.setRequestFocusEnabled(false);
+        withdrawButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                withdrawButtonMouseClicked(evt);
+            }
+        });
+        withdrawButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                withdrawButtonActionPerformed(evt);
+            }
+        });
+
+        transferButton.setBackground(new java.awt.Color(254, 254, 254));
+        transferButton.setFont(new java.awt.Font("Inter ExtraBold", 1, 14)); // NOI18N
+        transferButton.setText("Transfer");
+        transferButton.setToolTipText("Transfer");
+        transferButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        transferButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        transferButton.setFocusable(false);
+        transferButton.setRequestFocusEnabled(false);
+        transferButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transferButtonMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                transferButtonMousePressed(evt);
+            }
+        });
+        transferButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transferButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(withdrawLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                    .addComponent(balanceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(transaksiTertundaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(transferButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(withdrawButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(depositButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(depositButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(transaksiTertundaLabel)
+                            .addComponent(withdrawButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(transferButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(balanceLabel)
+                            .addGap(1, 1, 1)
+                            .addComponent(withdrawLabel3))))
+                .addGap(19, 19, 19))
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 940, 80));
+
+        jPanel7.setBackground(new java.awt.Color(204, 240, 255));
+        jPanel7.setForeground(new java.awt.Color(5, 5, 5));
+
+        totalTransaksiLabel.setFont(new java.awt.Font("Inter", 0, 20)); // NOI18N
+        totalTransaksiLabel.setText("0");
+
+        depositLabel11.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        depositLabel11.setText("Total Transaksi");
+
+        pemasukanPercentageLabel1.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        pemasukanPercentageLabel1.setForeground(new java.awt.Color(60, 60, 60));
+        pemasukanPercentageLabel1.setText("+0");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pemasukanPercentageLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(depositLabel11)
+                            .addComponent(totalTransaksiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 11, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(depositLabel11)
+                .addGap(37, 37, 37)
+                .addComponent(totalTransaksiLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pemasukanPercentageLabel1)
+                .addGap(25, 25, 25))
+        );
+
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 210, 150));
+
+        depositLabel12.setFont(new java.awt.Font("Montserrat Medium", 0, 20)); // NOI18N
+        depositLabel12.setForeground(new java.awt.Color(75, 75, 75));
+        depositLabel12.setText("Riwayat Transaksi");
+        jPanel1.add(depositLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 241, -1));
+
+        table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Target", "Type", "Date", "Amount", "Status"
+            }
+        ));
+        spTable.setViewportView(table1);
+
+        jPanel1.add(spTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 940, 240));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(40, 40, 40))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void withdrawFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_withdrawFieldActionPerformed
-
-    private void depositFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_depositFieldActionPerformed
-
-    private void depositBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depositBtnMouseClicked
-        Pattern p = Pattern.compile("[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)");//. represents single character  
-        String depositValue = depositField.getText();
-        Matcher m = p.matcher(depositValue);
-        boolean b = m.matches();
-
-        if (!b) {
-            JOptionPane.showMessageDialog(null, "Tolong jumlah deposit diketik dalam bentuk angka!");
-        } else {
-            try {
-                Deposit(NomorAkun, Double.parseDouble(depositValue));
-            } catch (SQLException ex) {
-                Logger.getLogger(UserHome.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_depositBtnMouseClicked
-
-    private void withdrawBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawBtnMouseClicked
-        Pattern p = Pattern.compile("[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)");//. represents single character  
-        String withdrawValue = depositField.getText();
-        Matcher m = p.matcher(withdrawValue);
-        boolean b = m.matches();
-
-        if (!b) {
-            JOptionPane.showMessageDialog(null, "Tolong jumlah withdraw diketik dalam bentuk angka!");
-        } else {
-            try {
-                Withdraw(NomorAkun, Double.parseDouble(withdrawValue));
-            } catch (SQLException ex) {
-                Logger.getLogger(UserHome.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_withdrawBtnMouseClicked
-
-    private void depositBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_depositBtnActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void withdrawButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawButtonMouseClicked
         TambahAkun tambahAkun = new TambahAkun(cn);
         parentComponent.setEnabled(false);
         tambahAkun.setVisible(true);
@@ -461,37 +543,91 @@ public class UserHome extends javax.swing.JInternalFrame {
         parentComponent.setVisible(true);
 
         tambahAkun.toFront();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_withdrawButtonMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void withdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawButtonActionPerformed
+        
+    }//GEN-LAST:event_withdrawButtonActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseClicked
+    private void depositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositButtonActionPerformed
+        
+    }//GEN-LAST:event_depositButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void depositButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depositButtonMouseClicked
+        Deposit depositWindow = new Deposit(cn, NomorAkun);
+        parentComponent.setEnabled(false);
+        depositWindow.setVisible(true);
+
+        depositWindow.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                parentComponent.setEnabled(true);
+                parentComponent.toFront();
+            }
+        });
+
+        parentComponent.setVisible(true);
+
+        depositWindow.toFront();
+    }//GEN-LAST:event_depositButtonMouseClicked
+
+    private void transferButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transferButtonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_transferButtonMouseClicked
+
+    private void transferButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_transferButtonActionPerformed
+
+    private void transferButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transferButtonMousePressed
+        Transfer transferWindow = new Transfer(cn, NomorAkun);
+        parentComponent.setEnabled(false);
+        transferWindow.setVisible(true);
+
+        transferWindow.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                parentComponent.setEnabled(true);
+                parentComponent.toFront();
+            }
+        });
+
+        parentComponent.setVisible(true);
+
+        transferWindow.toFront();
+    }//GEN-LAST:event_transferButtonMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton depositBtn;
-    private javax.swing.JTextField depositField;
-    private javax.swing.JLabel depositLabel;
+    private javax.swing.JLabel balanceLabel;
+    private javax.swing.JButton depositButton;
     private javax.swing.JLabel depositLabel1;
-    private javax.swing.JLabel depositLabel4;
+    private javax.swing.JLabel depositLabel11;
+    private javax.swing.JLabel depositLabel12;
     private javax.swing.JLabel depositLabel5;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel depositLabel8;
+    private javax.swing.JLabel depositLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton withdrawBtn;
-    private javax.swing.JTextField withdrawField;
-    private javax.swing.JLabel withdrawLabel;
-    private javax.swing.JLabel withdrawLabel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel pemasukanBulanLabel;
+    private javax.swing.JLabel pemasukanLabel;
+    private javax.swing.JLabel pemasukanPercentageLabel;
+    private javax.swing.JLabel pemasukanPercentageLabel1;
+    private javax.swing.JLabel pengeluaranBulanLabel;
+    private javax.swing.JLabel pengeluaranLabel;
+    private javax.swing.JLabel pengeluaranPercentageLabel;
+    private javax.swing.JScrollPane spTable;
+    private raven.swing.Table table1;
+    private javax.swing.JLabel totalTransaksiLabel;
+    private javax.swing.JLabel transaksiTertundaLabel;
+    private javax.swing.JButton transferButton;
+    private javax.swing.JButton withdrawButton;
+    private javax.swing.JLabel withdrawLabel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -146,7 +146,7 @@ public class EditAkun extends javax.swing.JFrame {
         submitBtn1 = new javax.swing.JButton();
         title1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        emailField1 = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Daftar Akun Baru");
@@ -163,7 +163,7 @@ public class EditAkun extends javax.swing.JFrame {
 
         nomorAkunLabel.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
         nomorAkunLabel.setForeground(new java.awt.Color(153, 153, 153));
-        nomorAkunLabel.setText("8862870272303");
+        nomorAkunLabel.setText("undefined");
         jPanel2.add(nomorAkunLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 380, -1));
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
@@ -279,15 +279,15 @@ public class EditAkun extends javax.swing.JFrame {
         jLabel9.setText("Email");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 160, 20));
 
-        emailField1.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
-        emailField1.setForeground(new java.awt.Color(64, 64, 64));
-        emailField1.setMargin(new java.awt.Insets(3, 6, 2, 6));
-        emailField1.addActionListener(new java.awt.event.ActionListener() {
+        emailField.setFont(new java.awt.Font("Inter", 0, 16)); // NOI18N
+        emailField.setForeground(new java.awt.Color(64, 64, 64));
+        emailField.setMargin(new java.awt.Insets(3, 6, 2, 6));
+        emailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailField1ActionPerformed(evt);
+                emailFieldActionPerformed(evt);
             }
         });
-        jPanel2.add(emailField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 350, 40));
+        jPanel2.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 350, 40));
 
         getContentPane().add(jPanel2, new java.awt.GridBagConstraints());
 
@@ -358,9 +358,9 @@ public class EditAkun extends javax.swing.JFrame {
 
     }//GEN-LAST:event_submitBtn1MouseClicked
 
-    private void emailField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailField1ActionPerformed
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailField1ActionPerformed
+    }//GEN-LAST:event_emailFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,7 +400,7 @@ public class EditAkun extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alamatField;
-    private javax.swing.JTextField emailField1;
+    private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
